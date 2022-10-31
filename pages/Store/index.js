@@ -6,7 +6,7 @@ export default function index() {
 
         <h1 className='text-4xl text-red-500'>Store</h1>
         <div>
-  <div className="md:grid md:grid-cols-2 md:gap-6">
+  {/* <div className="md:grid md:grid-cols-2 md:gap-6">
    
     <div className="mt-5 md:col-span-2 md:mt-0">
       <form action="#" method="POST">
@@ -135,7 +135,7 @@ export default function index() {
         </div>
       </form>
     </div>
-  </div>
+  </div> */}
 </div>
     </div>
   )
