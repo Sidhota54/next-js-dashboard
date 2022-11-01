@@ -2,17 +2,14 @@ import '../styles/globals.css'
 import style from '../styles/globals.css'
 import Layout from './Layout/Layout'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import apolloClient from '../apollo-client';
 
 function MyApp({ Component, pageProps }) {
-  const client = new ApolloClient({
-    uri: 'http://127.0.0.1:8000/graphql',
-    cache: new InMemoryCache(),
-   
-  });
+ 
   return (
 
     <div>
-       <ApolloProvider client={client}>
+       <ApolloProvider client={apolloClient}>
   <Layout>
     <Component {...pageProps} />
     </Layout>

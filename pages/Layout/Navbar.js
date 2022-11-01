@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
-import gql  from "@apollo/client";
-import client  from "../apollo-client";
+import {gql, useQuery}  from "@apollo/client";
+
 
 export default function Navbar() {
   const [selectDroupdown, setselectDroupdown] = useState(false);
@@ -10,17 +10,15 @@ export default function Navbar() {
   const Router = useRouter();
   const [currentPath, setcurrentPath] = useState("Store");
 
-  // const { data } =  client.query({
-  //   query: gql`
-  //   query{
-  //     allStore{
-  //       storeName
-  //       storeLogo
-  //       adminMail
-  //     }
-  //   }
-  //   `,
-  // });
+  const data  = gql`
+  query{
+    allGames {
+      name
+    }
+  }`;
+ 
+  
+  console.log(data)
 
   const arrayStore = [{
     url: "/Store/Air",
