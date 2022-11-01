@@ -1,40 +1,55 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
+import gql  from "@apollo/client";
+import client  from "../apollo-client";
 
 export default function Navbar() {
   const [selectDroupdown, setselectDroupdown] = useState(false);
   const [userDroupdown, setuserDroupdown] = useState(false);
   const Router = useRouter();
   const [currentPath, setcurrentPath] = useState("Store");
+
+  // const { data } =  client.query({
+  //   query: gql`
+  //   query{
+  //     allStore{
+  //       storeName
+  //       storeLogo
+  //       adminMail
+  //     }
+  //   }
+  //   `,
+  // });
+
   const arrayStore = [{
-    url: "/Air",
+    url: "/Store/Air",
     name: "Air"
   },
   {
-    url: "/AKIA",
+    url: "/Store/AKIA",
     name: "AKIA"
   },
   {
-    url: "/ALESIS",
+    url: "/Store/ALESIS",
     name: "ALESIS"
   },
   {
-    url: "/AddnewStore",
+    url: "/Store/AddnewStore",
     name: "Add new"
   }
   ]
+ 
   useEffect(() => {
     {
       arrayStore.map((n) => {
-        if (n.url == Router.asPath) {
-          setcurrentPath(n.name)
+        if (n.url == Router.asPath) { 
+          setcurrentPath(n.name)   
         }
       }
-
       )
     }
-  }, [])
+  }, [Router.asPath])
   return (
     <nav className='flex fixed z-50  w-full flex-wrap bg-[#10162e] shadow-lg border-b-2 border-red-500 p-2'>
       <div className="relative justify-start  inline-block w-[10%]  ml-50">
