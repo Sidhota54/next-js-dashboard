@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
           <Sidebar></Sidebar>
           {/* </div> */}
 
-          <div className="m-7 mt-15 w-full bg-orange-300 h-full text-center rounded-md shadow-2xl "> {children}</div>
+          <div className="m-5 mt-20 w-full h-full text-center rounded-md shadow-2xl "> {children}</div>
         </div>
 
       </>

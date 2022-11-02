@@ -7,16 +7,13 @@ export default function Addnew() {
     const Category = [{ name: "VIRTUAL INSTRUMENTS" }, { name: "EFFECTS" }, { name: "EXPANSIONS" }, { name: "SOUND PACKS" }]
     return (
         <div>
-
             <div id='section2' className="p-8 my-3  rounded shadow bg-gray-300">
                 <div className="">
-                    <div >
+                    <div>
                         <h1 className="text-left mb-3 text-3xl text-[lato] border-b-2 font-bold uppercase text-[#28234a]">Add New Product</h1>
                     </div>
                 </div>
                 <div className='p-8 mt-3 lg:mt-0 rounded shadow bg-white'>
-
-
                     <form >
                         <div className='flex gap-8 '>
                             <div className='container w-[70%] text-left bg-blue-200  p-3 rounded-lg'>
