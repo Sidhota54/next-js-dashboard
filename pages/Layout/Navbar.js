@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
+<<<<<<< HEAD
 import { gql , useQuery }  from "@apollo/client";
 
 const  Store  =  gql`
@@ -11,6 +12,10 @@ const  Store  =  gql`
     }
   }
   `;
+=======
+import {gql, useQuery}  from "@apollo/client";
+
+>>>>>>> 89664f3e0756205cc6749f799e1f10e92a899fee
 
 export default function Navbar() {
   const [selectDroupdown, setselectDroupdown] = useState(false);
@@ -18,7 +23,20 @@ export default function Navbar() {
   const Router = useRouter();
   const [currentPath, setcurrentPath] = useState("Store");
 
+<<<<<<< HEAD
   const {data ,error ,loading} =useQuery(Store);
+=======
+  const data  = gql`
+  query{
+    allGames {
+      name
+    }
+  }`;
+ 
+  
+  console.log(data)
+
+>>>>>>> 89664f3e0756205cc6749f799e1f10e92a899fee
   const arrayStore = [{
     url: "/Store/Air",
     name: "Air"
