@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
-<<<<<<< HEAD
 import { gql , useQuery }  from "@apollo/client";
 
-const  Store  =  gql`
+
+export default function Navbar() {
+  const  Store  =  gql`
   query{
     allStore{
       storeName
@@ -12,62 +13,24 @@ const  Store  =  gql`
     }
   }
   `;
-=======
-import {gql, useQuery}  from "@apollo/client";
-
->>>>>>> 89664f3e0756205cc6749f799e1f10e92a899fee
-
-export default function Navbar() {
   const [selectDroupdown, setselectDroupdown] = useState(false);
   const [userDroupdown, setuserDroupdown] = useState(false);
   const Router = useRouter();
   const [currentPath, setcurrentPath] = useState("Store");
 
-<<<<<<< HEAD
   const {data ,error ,loading} =useQuery(Store);
-=======
-  const data  = gql`
-  query{
-    allGames {
-      name
-    }
-  }`;
- 
-  
-  console.log(data)
-
->>>>>>> 89664f3e0756205cc6749f799e1f10e92a899fee
-  const arrayStore = [{
-    url: "/Store/Air",
-    name: "Air"
-  },
-  {
-    url: "/Store/AKIA",
-    name: "AKIA"
-  },
-  {
-    url: "/Store/ALESIS",
-    name: "ALESIS"
-  },
-  {
-    url: "/Store/AddnewStore",
-    name: "Add new"
-  }
-  ]
  
   useEffect(() => {
-    {
-      arrayStore.map((n) => {
-        if (n.url == Router.asPath) { 
-          setcurrentPath(n.name)   
-        }
-      }
-      )
+    if(Router.query.name==null){
+      setcurrentPath("Add New Store")
+    }
+    else{
+      setcurrentPath(Router.query.name)
     }
   }, [Router.asPath])
   return (
     <nav className='flex fixed z-50  w-full flex-wrap bg-[#10162e] shadow-lg border-b-2 border-red-500 p-2'>
-      <div className="relative justify-start  inline-block w-[10%]  ml-50">
+      <div className="relative justify-start  inline-block   ml-50">
        
         <div>
           <button type="button" className="mx-2 flex  w-full rounded-md bg-[#10162e] focus:bg-blue-600  py-2 text-sm font-medium text-gray-300 shadow-sm focus:outline-none  px-4 " onClick={() => setselectDroupdown(!selectDroupdown)} >
@@ -82,9 +45,11 @@ export default function Navbar() {
           <div className="absolute  z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
             <div className="py-1" role="none" onClick={() => setselectDroupdown(false)}>
               {/* <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" --> */}
-              {arrayStore.map((n) =>
-                <Link href={n.url} className="text-gray-700 m-2 rounded-lg hover:text-white hover:font-bold block hover:bg-gray-600 px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">{n.name}</Link>
+              {data?.allStore?.map((n) =>
+                <Link href={n.storeUrl} className="text-gray-700 m-2 rounded-lg hover:text-white hover:font-bold block hover:bg-gray-600 px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">{n.storeName}</Link>
               )}
+                   <Link href="/Store/AddnewStore" className="text-gray-700 m-2 rounded-lg hover:text-white hover:font-bold block hover:bg-gray-600 px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Add New Store</Link>
+
             </div>
 
 

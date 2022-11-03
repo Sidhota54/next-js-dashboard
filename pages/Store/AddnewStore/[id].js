@@ -14,25 +14,48 @@ const  Store  =  gql`
       }
   }
   `;
-//   const UpdateStore =gql`
+  const Update_Store =gql`
+  mutation($id:ID,$storeName:String,$storeUrl:String,$adminMail:String,$storeLogo:String,){
+    updateStore(id:$id
+      ,adminMail:$adminMail
+      ,storeLogo:$storeLogo
+      ,storeName:$storeName
+      ,storeUrl:$storeUrl){
+      store{
+        storeName,
+        storeLogo,
+        adminMail
+      }
+    }
+  }
+  `;
+  const Delete_Store =gql`
+  mutation($id:ID){
+      deleteStore(id:$id){
+          store{
+            storeName,
+             storeLogo,
+             adminMail
+           }
+        }  
+    }
 
-//   `;
+  `;
 
 export default function update() {
-    const Router = useRouter();
+    const Router = useRouter(); 
     const storeid = Router.query.id;
     const {data ,error ,loading} = useQuery(Store,{variables:{id:storeid}});
-    const storedata = data?.storeById;
-    console.log("")
-   
+    const storedata = data?.storeById;  
     const [formData, setform] = useState({ name: "", logo: "", Url: "", email: "" });
-//   const [Addnewstore] = useMutation(AddStore);
-  const ChangesInput = (e) => {
+    const [Updatestore] = useMutation(Update_Store);
+    const [Deletestore] = useMutation(Delete_Store);
+    const ChangesInput = (e) => {
     const inpfield = e.target.name;
     const inpval = e.target.value;
     setform({ ...formData, [inpfield]: inpval })
     
-  }
+   }
   function onSubmit(e) {
     if(!formData.email){
         formData.email = storedata.adminMail;
@@ -47,12 +70,14 @@ export default function update() {
         formData.logo = storedata.storeLogo;
     }
     e.preventDefault();
-    console.log("sidd", formData);
-    // Addnewstore({ variables: { adminMail: formData.email, storeName: formData.name, storeLogo: formData.logo, storeUrl: formData.Url } })
-    // .then( alert("added"));
+    // console.log("sidd", formData);
+    // console.log(storeid)
+    Updatestore({ variables: {id:storeid, adminMail: formData.email, storeName: formData.name, storeLogo: formData.logo, storeUrl: formData.Url } })
+    .then( alert("Updated"));
   }
   function DeleteStore(){
-    console.log("Snhskjbsj")
+    Deletestore({ variables: {id:storeid} })
+    .then( Router.back());
   }
     
   return (
@@ -72,7 +97,7 @@ export default function update() {
           onChange={ChangesInput}
           className="form-control block w-full px-4 py-2 text-md font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
           id='name'
-          value={storedata?.storeName}
+          defaultValue={storedata?.storeName}
           placeholder="Store Name" required
         />
         <label className="text-left text-md font-medium text-[lato] mb-2  uppercase text-black">
@@ -96,7 +121,7 @@ export default function update() {
           onChange={ChangesInput}
           className="form-control block w-full px-4 py-2 text-md font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
           id='Url'
-          value={storedata?.storeUrl}
+          defaultValue={storedata?.storeUrl}
           placeholder="Admin Email" required
         />
         <label className="text-left text-md font-medium text-[lato] mb-2  uppercase text-black">
@@ -106,7 +131,7 @@ export default function update() {
           type="text"
           name='logo'
           onChange={ChangesInput}
-          value={storedata?.storeLogo}
+          defaultValue={storedata?.storeLogo}
           className="form-control block w-full px-4 py-2 text-md font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
           id='Url'
           placeholder="paste Logo Url Here" required

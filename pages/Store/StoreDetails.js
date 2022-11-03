@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+
 import { useRouter } from 'next/router';
 import { gql , useQuery }  from "@apollo/client";
 
@@ -16,8 +17,12 @@ const  Store = gql`
   }`;
 
 export default function StoreDetails() {
-    const {data ,error ,loading} =useQuery(Store);
-    console.log(data?.allStore[0]?.id)
+    // const [Allstoredata ,steallstoredata ] = useState({})
+    const {data ,error ,loading} =useQuery(Store); 
+    // steallstoredata(data?.allStore)
+    // useEffect(() => {
+       
+    // },[data]);
     return (
         <div className=''>
             <table className="border">
@@ -32,14 +37,14 @@ export default function StoreDetails() {
                 </tr>
                 </thead>
                 <tbody className='border bg-white'>
-                    {data?.allStore?.map((n) =>
+                    {data?.allStore.map((n) =>
                     <tr>
                         <td className='border'>{n.id}</td>
                         <td className='border'> {n.storeName}</td>
                         <td className='border'>{n.adminMail}</td>
                         <td className='border'>{n.storeUrl}</td>
                         <td className='border'>{n.storeLogo}</td>
-                        <th className='border'><Link href={`/Store/UpdateStore/${n.id}`}>
+                        <th className='border'><Link href={`/Store/AddnewStore/${n.id}`}>
                             <button className="py-2 mx-4 my-2 rounded-sm px-4 bg-slate-400">Update</button>
                             </Link>
                             </th>
