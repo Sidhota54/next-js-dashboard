@@ -4,25 +4,15 @@ import Link from 'next/link'
 
 import { useRouter } from 'next/router';
 import { gql , useQuery }  from "@apollo/client";
+import { All_Store } from '../../Graphql/gql';
 
-const  Store = gql`
-  query{
-    allStore{
-        id,
-      storeName,
-      storeLogo,
-      adminMail,
-      storeUrl,
-    }
-  }`;
+
 
 export default function StoreDetails() {
-    // const [Allstoredata ,steallstoredata ] = useState({})
-    const {data ,error ,loading} =useQuery(Store); 
-    // steallstoredata(data?.allStore)
-    // useEffect(() => {
-       
-    // },[data]);
+ 
+    const {error,loading,data}  = useQuery(All_Store);
+    if(loading){return <h1>Loading....</h1>}
+    if(error){ console.log(error.message)}
     return (
         <div className=''>
             <table className="border">

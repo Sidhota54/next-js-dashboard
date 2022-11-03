@@ -1,24 +1,16 @@
 
 import React from 'react'
 import { useState } from 'react';
-// import { useQuery,  } from "@apollo/react-hooks";
-import { gql, useQuery, useMutation } from "@apollo/client";
+import {  useQuery, useMutation } from "@apollo/client";
 import StoreDetails from '../StoreDetails';
 import { useEffect } from 'react';
+import { Add_Store, All_Store } from '../../../Graphql/gql';
 
-const AddStore = gql`
- mutation($adminMail:String,$storeName:String,$storeLogo:String,$storeUrl:String){
-    createStore(adminMail:$adminMail,storeName:$storeName,storeLogo:$storeLogo,storeUrl:$storeUrl){
-          store{
-        storeName,
-          }
-    }
-  }
-`;
 
 export default function AddnewStore() {
   const [formData, setform] = useState({ name: "", logo: "", email: "" });
-  const [Addnewstore] = useMutation(AddStore);
+  
+  const [Addnewstore, { data, loading, error }] = useMutation(Add_Store, {refetchQueries: [{ query: All_Store }]});
 
   const ChangesInput = (e) => {
     const inpfield = e.target.name;
@@ -27,8 +19,8 @@ export default function AddnewStore() {
   }
   function onSubmit(e) {
     e.preventDefault();
-    Addnewstore({ variables: { adminMail: formData.email, storeName: formData.name, storeLogo: formData.logo, storeUrl: `/Store/${formData.name}` } })
-    .then( alert("added"),e.target.reset());
+    Addnewstore({ variables: { adminMail: formData.email, storeName: formData.name, storeLogo: formData.logo, storeUrl: `/Store/${formData.name}` }})
+    .then( e.target.reset(),console.log(data));
   }
   // useEffect(() => {
     
@@ -49,7 +41,7 @@ export default function AddnewStore() {
             <input
               type="text"
               name='name'
-              // Value={formData.name}
+              
               onChange={ChangesInput}
               className="form-control block w-full px-4 py-2 text-md font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               id='name'
@@ -61,31 +53,20 @@ export default function AddnewStore() {
             <input
               type="text"
               name='email'
-              // defaultValue={formData.email}
+          
               onChange={ChangesInput}
               className="form-control block w-full px-4 py-2 text-md font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               id='email'
               placeholder="Admin Email" required
             />
-            {/* <label className="text-left text-md font-medium text-[lato] mb-2  uppercase text-black">
-              Store URL
-            </label>
-            <input
-              type="text"
-              name='Url'
-              onChange={ChangesInput}
-              // defaultValue={formData.Url}
-              className="form-control block w-full px-4 py-2 text-md font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-              id='Url'
-              placeholder="Admin Email" required
-            /> */}
+           
             <label className="text-left text-md font-medium text-[lato] mb-2  uppercase text-black">
               Store Logo
             </label>
             <input
               type="text"
               name='logo'
-              // defaultValue={formData.logo}
+           
               onChange={ChangesInput}
               className="form-control block w-full px-4 py-2 text-md font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               id='Url'
