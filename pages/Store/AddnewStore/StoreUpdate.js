@@ -4,9 +4,8 @@ import Link from 'next/link'
 import { gql , useMutation, useQuery }  from "@apollo/client";
 import { Delete_Store, Update_Store,All_Store, Store_ByID } from '../../../Graphql/gql';
 
-export default function update() {
+export default function StoreUpdate({storeid ,handleClick}) {
     const Router = useRouter(); 
-    const storeid = Router.query.id;
     const {data ,error ,loading} = useQuery(Store_ByID,{variables:{id:storeid}});
     const storedata = data?.storeById;  
     const [formData, setform] = useState({ name: "", logo: "", email: "" });
@@ -17,7 +16,6 @@ export default function update() {
     const inpfield = e.target.name;
     const inpval = e.target.value;
     setform({ ...formData, [inpfield]: inpval })
-    
    }
   function onSubmit(e) {
     if(!formData.email){
@@ -33,21 +31,21 @@ export default function update() {
         formData.logo = storedata.storeLogo;
     }
     e.preventDefault();
-    Updatestore({ variables: {id:storeid, adminMail: formData.email, storeName: formData.name, storeLogo: formData.logo, storeUrl: `/Store/${formData.name}` } })
-    .then(Router.back());
+    Updatestore({ variables: {id:storeid, adminMail: formData.email, storeName: formData.name, storeLogo: formData.logo, storeUrl: `/Store/${formData.name}` } }).then( handleClick());
   }
   function DeleteStore(){
-    Deletestore({ variables: {id:storeid} })
-    .then( Router.back());
+    Deletestore({ variables: {id:storeid} }).then(handleClick());
   }
     
   return (
-    <div> <div className="p-7 m-3 flex gap-3" >       
-    <div className='w-3/12  text-left bg-slate-50  p-3 rounded-lg'>
+    <div> <div className="p-7 m-3 flex gap-3   " >
+        
+       
+    <div className=''>
       <form onSubmit={onSubmit}>
 
-        <h1 className="text-left text-lg text-[lato] border-b-2 font-bold uppercase text-[#28234a]"> Update  Store Details</h1>
-        <label className="text-left text-md font-medium text-[lato] mb-2  uppercase text-black">
+        <h1 className="text-center text-lg text-[lato] border-b-2  mb-3 font-bold uppercase text-[#28234a]"> Update  Store Details</h1>
+        <label className=" text-md font-medium text-[lato] mb-2  uppercase text-black">
           Store Name
         </label>
         <input

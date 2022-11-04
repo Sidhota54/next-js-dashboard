@@ -26,14 +26,13 @@ export default function AddnewStore() {
     
   //   console.log("sidd")
   // },[StoreDetails]);
-
+ 
   return (
     <div>
-      <div className="p-7 m-3 flex gap-3 rounded shadow bg-gray-300">
+      <div className="p-7 m-3 flex gap-3">
        
-        <div className='w-3/12  text-left bg-blue-200  p-3 rounded-lg'>
+        <div className='w-3/12  text-left bg-inherit bg-slate-50  p-3 rounded-lg'>
           <form onSubmit={onSubmit}>
-
             <h1 className="text-left text-lg text-[lato] border-b-2 font-bold uppercase text-[#28234a]"> Add New Store</h1>
             <label className="text-left text-md font-medium text-[lato] mb-2  uppercase text-black">
               Store Name
@@ -41,7 +40,6 @@ export default function AddnewStore() {
             <input
               type="text"
               name='name'
-              
               onChange={ChangesInput}
               className="form-control block w-full px-4 py-2 text-md font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               id='name'
@@ -74,22 +72,19 @@ export default function AddnewStore() {
             />
             <div className='w-full flex'>
              
-            <button type="submit" className='py-2 px-3 my-2  mx-auto rounded-sm hover:text-gray-700 font-semibold text-sm text-[lato] bg-gray-400 hover:bg-green-400'>Add Store</button>
+            <button type="submit" className=' bg-blue-500 border-b-4  hover:border-blue-500 border-blue-700 text-white font-bold  hover:bg-blue-400  px-4 my-2  mx-auto rounded-sm text-sm text-[lato]  '>Add Store</button>
          
-            <button type="reset" className='py-2 px-3  ml-6 my-2 mx-auto rounded-sm hover:text-gray-700 font-semibold text-sm text-[lato] bg-gray-400 hover:bg-green-400'>ResetForm</button>
+            <button type="reset" className='bg-red-500 border-b-4  hover:border-red-500 border-red-700 text-white font-bold  hover:bg-red-400 py-2 px-3  ml-6 my-2 mx-auto rounded-sm text-[lato] '>Reset</button>
             </div>
           </form>
-          
+          {/* bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded */}
          
           </div>
-          <div className='w-9/12 p-4 bg-blue-200 rounded-lg'>
+          <div className='w-9/12 flex justify-center bg-slate-50 p-3 rounded-lg'>
           <StoreDetails></StoreDetails>
         </div>
 
-        
       </div>
-
-
     </div>
   )
 }

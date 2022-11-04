@@ -17,12 +17,12 @@ const Layout = ({ children }) => {
     <>
 
       {authUser ? <Login></Login> : <> <Navbar />
-        <div className='relative flex  bg-gray-200 '>
+        <div className='relative flex  '>
           {/* <div className='mt-30'> */}
           <Sidebar></Sidebar>
           {/* </div> */}
 
-          <div className="m-5 mt-20 w-full h-full text-center rounded-md shadow-2xl "> {children}</div>
+          <div className="m-5 mt-20 w-full h-full text-center  bg-[#a3c3d7] rounded-lg  "> {children}</div>
         </div>
 
       </>
